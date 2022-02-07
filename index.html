@@ -19,9 +19,23 @@
       <a href="javascript:" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">more_vert</i></a>
     </div>
   </div>
-  <img class="mdui-img-fluid" src="https://static.codemao.cn/FtMY-CS0bioSVzbBEDlb0UVWuds6"/>
+  <img class="mdui-img-fluid" src="https://code-vicent.vercel.app/img/vicent.jpg"/>
   <div class="mdui-divider-inset"></div>
-  <div class="mdui-card">
+  <div class="mdui-chip">
+    <img class="mdui-chip-icon" src="https://static.box3.codemao.cn/img/QmWnZwK48wxQzP9bSCggCY3DGcMSsnrLAxSuEjd1KRbF6T_60_60_cover.avif"/>
+    <span class="mdui-chip-title">状态：编程中···</span>
+  </div>
+
+  <div class="mdui-container">
+    <div class="mdui-tab mdui-color-grey-100 mdui-tab-full-width" id="tab">
+      <a href="#tab1-content" id="tab1" class="mdui-ripple">首页推广</a>
+      <a href="#tab2-content" id="tab2" class="mdui-ripple">荣誉墙</a>
+      <a href="#tab3-content" id="tab3" class="mdui-ripple">近期新作</a>
+    </div>
+    <div id="tab2-content" class="mdui-p-a-2">暂无荣誉</div>
+    <div id="tab3-content" class="mdui-p-a-2">无内容</div>
+  </div>
+  <div id="tab1-content" class="mdui-card">
     <div class="mdui-card-media">
       <img src="https://static.box3.codemao.cn/img/QmQ9Q4aB7swAAgMbz17DXRbYdENWtBtZ7mo7GPFc2dsrod_1200_360_cover.avif"/>
       <div class="mdui-card-media-covered mdui-card-media-covered-gradient">
@@ -87,5 +101,7 @@
     $('#box3-cm1').on('click', function () {
         window.location.href="https://box3.fun/g/178286"
     });
+    var tab = new mdui.Tab('#tab');
+    tab.show(0);
 </script>
 </html>
