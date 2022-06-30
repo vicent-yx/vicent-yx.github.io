@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Vicent轩 - 个人主页</title>
+  <link rel="stylesheet" href="css\mdui.min.css" />
+  <link rel="shortcut icon" href="https://static.codemao.cn/whitef/favicon.ico">
+</head>
+<body>
+  <div class="mdui-appbar">
+    <div class="mdui-toolbar mdui-color-grey-100">
+      <a href="javascript:" class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#drawer'}"><i class="mdui-icon material-icons">menu</i></a>
+      <a href="javascript:" class="mdui-typo-headline">Code-Vicent</a>
+      <a href="javascript:" class="mdui-typo-title">个人主页</a>
+      <div class="mdui-toolbar-spacer"></div>
+      <a href="javascript:" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>
+      <a href="javascript:" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">refresh</i></a>
+      <a href="javascript:" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">more_vert</i></a>
+    </div>
+  </div>
+  <div class="mdui-card">
+    <div class="mdui-card-media">
+      <img src="https://code-vicent.vercel.app/img/pay-board.png"/>
+      <div class="mdui-card-media-covered">
+        <div class="mdui-card-primary">
+          <div class="mdui-card-primary-title">Box3模拟支付</div>
+          <div class="mdui-card-primary-subtitle">by Vicent轩</div>
+        </div>
+      </div>
+    </div>
+    <div class="mdui-card-actions">
+      <button class="mdui-btn mdui-ripple" id="bili_watch">观看B站演示视频</button>
+      <button class="mdui-btn mdui-ripple" id="download">下载Django源码</button>
+    </div>
+  </div>
+  <div class="mdui-typo">
+  <ul>
+    <h3>欢迎访问Box3模拟支付项目！</h3>
+    <li>注意：神奇代码岛不允许现金交易，开源仅供学习，不准拿来做其他用途，使用时应标明作者Vicent轩
+    <li>使用的库：</li>
+        <ul>
+        <li>Django</li>
+        <li>Selenium</li>
+        <li>requests</li>
+        <li>time</li>
+        <li>json</li>
+        </ul>
+    </li>
+    <h4>Box3地图对接代码：</h4>
+    <div class="mdui-typo">
+      <pre>console.clear()
+async function createTables() {
+    await db.sql`CREATE TABLE IF NOT EXISTS player (
+        ukey NOT NULL,
+        vip NOT NULL
+    )`
+}
+async function createBuy(){
+    await db.sql`CREATE TABLE IF NOT EXISTS buy (
+        buy_key NOT NULL
+    )`
+}
+(async function() {
+    await createTables()
+    await createBuy()
+}());
+
+function stop(p){
+    p.player.runAcceleration = 0
+    p.player.walkAcceleration = 0
+}
+function run(p){
+    p.player.runAcceleration = 0.35
+    p.player.walkAcceleration = 0.19
+}
+async function ask(p){
+    const result = await p.player.dialog({
+        type: Box3DialogType.INPUT,
+        title: "神奇代码岛",
+        content: `您还没有购买此地图，无法游玩\n请到神岛支付官网购买\n如果你已经购买了key，请在下方输入`,
+        confirmText: '确定',
+        placeholder: 'key',
+    });
+    if(result != "" && result != null){
+        const keys = await db.sql`SELECT * FROM buy WHERE buy_key=${result}`; 
+        if (keys && !keys.length) { 
+            p.player.directMessage("此key无效")
+            ask(p)
+        }else{
+            run(p)
+            await db.sql`DELETE FROM buy WHERE buy_key=${result}`
+            await db.sql`UPDATE player SET vip='1' WHERE ukey=${p.player.userKey}`
+            p.player.dialog({
+                type: Box3DialogType.TEXT,
+                title: "神奇代码岛",
+                content: `此key有效！\n感谢您购买本地图\n祝你玩得开心~`,
+            });
+        }
+    }else{
+        ask(p)
+    }
+}
+
+world.onPlayerJoin(async({ entity }) => {
+    if(entity.player.userKey == ""){
+        try{
+            admin = entity.player.url.searchParams.get("admin")
+            bkey = entity.player.url.searchParams.get("key")
+        }catch{}
+        if(admin == "vicent666"){
+            await db.sql`INSERT INTO buy VALUES (${bkey})`;
+        }
+        return
+    }
+    rows = await db.sql`SELECT * FROM player WHERE ukey=${entity.player.userKey}`; 
+    if (rows && !rows.length) { 
+        console.log("no data")
+        await db.sql`INSERT INTO player VALUES (${entity.player.userKey}, ${"0"})`;
+        stop(entity)
+        ask(entity)
+    }else{
+        if(rows[0].vip == "0"){
+            stop(entity)
+            ask(entity)
+        }
+    }
+});</pre>
+    </div>
+  </ul>
+</div>
+<body class="mdui-drawer-body-left">
+    <div class="mdui-drawer" id="drawer">
+        <ul class="mdui-list">
+        <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons"></i>
+            <div class="mdui-list-item-content">灌水空间</div>
+        </li>
+        <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons"></i>
+            <div class="mdui-list-item-content">源码公开</div>
+        </li>
+        <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons"></i>
+            <div class="mdui-list-item-content">友情链接</div>
+        </li>
+        <li class="mdui-subheader">社区主页</li>
+        <a target="drawer" rel="noopener" href="https://shequ.codemao.cn/user/3329096" class="mdui-list-item mdui-ripple">
+            <div class="mdui-list-item-icon">
+            <i class="iconfont icon-bilibili"></i>
+            </div>
+            <div class="mdui-list-item-content">编程猫</div>
+            </a>
+        </li>
+        <a target="drawer" rel="noopener" href="https://box3.fun/u/vicent" class="mdui-list-item mdui-ripple">
+            <div class="mdui-list-item-icon">
+            <i class="iconfont icon-bilibili"></i>
+            </div>
+            <div class="mdui-list-item-content">神奇代码岛</div>
+            </a>
+        </li>
+        <a target="drawer" rel="noopener" href="https://space.bilibili.com/488522677" class="mdui-list-item mdui-ripple">
+            <div class="mdui-list-item-icon">
+            <i class="iconfont icon-bilibili"></i>
+            </div>
+            <div class="mdui-list-item-content">B站主页</div>
+        </a>
+        </li>
+    </div>
+    <script src="js\mdui.min.js"></script>
+</body>
+<script>
+    var $ = mdui.$;
+    var inst = new mdui.Drawer('#drawer');
+    inst.close();
+    $('#bili_watch').on('click', function () {
+        window.open("https://space.bilibili.com/488522677")
+    });
+    $('#download').on('click', function () {
+        window.location.href="https://code-vicent.vercel.app/file/sd_give.zip"
+    });
+</script>
+</html>
