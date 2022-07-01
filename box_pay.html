@@ -32,13 +32,13 @@
     <div class="mdui-card-actions">
       <button class="mdui-btn mdui-ripple" id="bili_watch">观看B站演示视频</button>
       <button class="mdui-btn mdui-ripple" id="download">下载Django源码</button>
-      <button class="mdui-btn mdui-ripple" id="download_html">下载html源码</button>
     </div>
   </div>
   <div class="mdui-typo">
   <ul>
     <h3>欢迎访问Box3模拟支付项目！</h3>
     <li>注意：神奇代码岛不允许现金交易，开源仅供学习，不准用于其他用途，使用时应遵守神奇代码岛守则，应标明作者Vicent轩
+    <li>下载django源码后，双击打开runserver.bat即可开启服务器，通过 http://127.0.0.1:8000/sd_kj 访问
     <li>使用的库：</li>
         <ul>
         <li>Django</li>
@@ -179,9 +179,6 @@ world.onPlayerJoin(async({ entity }) => {
     });
     $('#download').on('click', function () {
         window.location.href="https://code-vicent.vercel.app/file/sd_give.zip"
-    });
-    $('#download_html').on('click', function () {
-        window.location.href="https://code-vicent.vercel.app/file/html.zip"
     });
 </script>
 </html>
