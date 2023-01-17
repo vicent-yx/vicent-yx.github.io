@@ -16,8 +16,8 @@
       </div>
     </div>
     <div class="mdui-card-actions">
-      <button class="mdui-btn mdui-ripple" id="bili_watch">观看B站演示视频</button>
-      <button class="mdui-btn mdui-ripple" id="download">下载Django源码</button>
+      <button class="mdui-btn mdui-ripple" id="bili_watch" onclick="goto('https://www.bilibili.com/video/BV1XG411s7Wj')">观看B站演示视频</button>
+      <button class="mdui-btn mdui-ripple" id="download" onclick="goto('https://wwld.lanzoul.com/ixiT50l7ax1i')">下载Django源码</button>
     </div>
   </div>
   <div class="mdui-typo">
@@ -116,4 +116,9 @@ world.onPlayerJoin(async({ entity }) => {
     </div>
   </ul>
 </div>
+<script>
+    function goto(url){
+        window.open(url)
+    }
+</script>
 </html>
